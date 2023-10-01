@@ -27,13 +27,16 @@ def fetch_news(url):
 
 def main():
     urls = [
-        "https://newsapi.org/v2/everything?q=apple&from=2023-08-21&to=2023-08-21&sortBy=popularity&apiKey=dc54d42f65ad4b1594c9617dd676dbd8",
-        "https://newsapi.org/v2/everything?q=apple&from=2023-08-21&to=2023-08-21&sortBy=popularity&apiKey=dc54d42f65ad4b1594c9617dd676dbd8"
+
+        'https://newsapi.org/v2/everything?q=tesla&from=2023-09-01&sortBy=publishedAt&apiKey=dc54d42f65ad4b1594c9617dd676dbd8',
+
+        'https://newsapi.org/v2/everything?q=tesla&from=2023-09-01&sortBy=publishedAt&apiKey=dc54d42f65ad4b1594c9617dd676dbd8'
     ]
 
     all_news = []
     for url in urls:
         news = fetch_news(url)
+        print(news)
         all_news.append(news)
 
     combined_news = {

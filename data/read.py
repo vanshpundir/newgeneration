@@ -1,3 +1,3 @@
 import pandas as pd
-df = pd.read_csv("data_news.csv")
-print(df.columns)
+
+df3 = pd.read_csv("concatenated_data.csv")
