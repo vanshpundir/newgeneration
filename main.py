@@ -4,10 +4,10 @@ import pandas as pd
 from fetching_api_data.news_using_api import fetch_news
 
 def run_scrapy_crawl():
-    project_directory = "/Users/vansh/Downloads/newgeneration/newgeneration/website_scraper"
+    project_directory = "website_scraper"
     os.chdir(project_directory)
 
-    command = "scrapy crawl website_spider -o /Users/vansh/Downloads/newgeneration/newgeneration/data/scraped_news_new1.csv"
+    command = "scrapy crawl website_spider -o /Users/vansh/PycharmProjects/newgeneration/data/scraped_news_new1.csv"
 
     try:
         subprocess.run(command, shell=True, check=True)
@@ -17,8 +17,8 @@ def run_scrapy_crawl():
 
 def fetch_and_combine_api_data():
     urls = [
-        'https://newsapi.org/v2/everything?q=tesla&from=2023-09-05&sortBy=publishedAt&apiKey=dc54d42f65ad4b1594c9617dd676dbd8',
-        'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=dc54d42f65ad4b1594c9617dd676dbd8'
+        'https://newsapi.org/v2/everything?q=tesla&from=2023-10-25&sortBy=publishedAt&apiKey=dc54d42f65ad4b1594c9617dd676dbd8',
+        'https://newsapi.org/v2/everything?q=apple&from=2023-11-24&to=2023-11-24&sortBy=popularity&apiKey=dc54d42f65ad4b1594c9617dd676dbd8'
     ]
 
     all_news = []
@@ -39,13 +39,14 @@ def fetch_and_combine_api_data():
         combined_news["description_text"].extend(news["description"])
 
     df_combined = pd.DataFrame(combined_news)
-    csv_file = "/Users/vansh/Downloads/newgeneration/newgeneration/data/api_data_3.csv"
+    csv_file = "data/api_data_3.csv"
     df_combined.to_csv(csv_file, index=False)
     return csv_file
 
 def concatenate_csv_files(csv_file1, csv_file2, output_csv):
     df1 = pd.read_csv(csv_file1)
     df2 = pd.read_csv(csv_file2)
+
 
     concatenated_df = pd.concat([df1, df2], ignore_index=True)
     concatenated_df.to_csv(output_csv, index=False)
@@ -55,9 +56,12 @@ def main():
     run_scrapy_crawl()
     api_data_csv = fetch_and_combine_api_data()
 
-    csv_file1 = "/Users/vansh/Downloads/newgeneration/newgeneration/data/scraped_news_new1.csv"
+    csv_file1 = "data/scraped_news_new1.csv"
     csv_file2 = api_data_csv
-    output_csv = "/Users/vansh/Downloads/newgeneration/newgeneration/data/concatenated_data.csv"
+
+    print(pd.read_csv(csv_file2))
+
+    output_csv = "/Users/vansh/PycharmProjects/newgeneration/data/concat.csv"
 
     concatenate_csv_files(csv_file1, csv_file2, output_csv)
 
